@@ -1,10 +1,10 @@
 local utils = require("utils")
 
-require("options")
-local km = require("keymaps")
-require("lazynvim")
+require("config.options")
+local km = require("config.keymaps")
+require("config.lazynvim")
 km.after_lazy_keymaps()
-require("autocmds")
+require("config.autocmds")
 
 utils.color_overrides.setup_colorscheme_overrides()
 
