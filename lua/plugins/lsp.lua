@@ -1,46 +1,78 @@
 return {
   {
     "williamboman/mason.nvim",
+    build = ":MasonUpdate",
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ensure_installed = {
+          "lua-language-server",
+          "rust-analyzer",
+          "pyright",
+          "typescript-language-server",
+          "css-lsp",
+          "tailwindcss-language-server",
+          "stylua",
+          "shellcheck",
+          "shfmt",
+        },
+      })
     end,
   },
 
   {
     "neovim/nvim-lspconfig",
     config = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "rust",
-        callback = function()
-          vim.lsp.start({
-            name = "rust_analyzer",
-            cmd = { "rust-analyzer" },
-            root_dir = vim.fs.root(0, { "Cargo.toml", ".git" }),
-          })
-        end,
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+            workspace = { checkThirdParty = false },
+            hint = { enable = true, paramType = true, setType = false },
+            format = { enable = false },
+          },
+        },
       })
 
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "lua",
-        callback = function()
-          vim.lsp.start({
-            name = "lua_ls",
-            cmd = { "lua-language-server" },
-            root_dir = vim.fs.root(0, { ".git", ".luarc.json" }),
-          })
-        end,
+      vim.lsp.config("rust_analyzer", {
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = { allFeatures = true },
+            checkOnSave = { command = "clippy" },
+          },
+        },
       })
 
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "python",
-        callback = function()
-          vim.lsp.start({
-            name = "pyright",
-            cmd = { "pyright-langserver", "--stdio" },
-            root_dir = vim.fs.root(0, { ".git", "pyproject.toml" }),
-          })
-        end,
+      vim.lsp.config("pyright", {})
+
+      vim.lsp.config("ts_ls", {
+        root_markers = { ".git" },
+        single_file_support = false,
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "literal",
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+        },
       })
+
+      vim.lsp.config("cssls", {})
+      vim.lsp.config("html", {})
+      vim.lsp.config("tailwindcss", { root_markers = { ".git" } })
     end,
   },
 }
+
