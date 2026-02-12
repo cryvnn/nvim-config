@@ -4,7 +4,7 @@
 
 [![Neovim](https://img.shields.io/badge/Neovim-7A8A6B?style=for-the-badge&logo=neovim&logoColor=white)](https://neovim.io/)
 [![Lua](https://img.shields.io/badge/lua-7B9CD4?style=for-the-badge&logo=lua&logoColor=white)](https://lua.org/)
-[![License](https://img.shields.io/github/license/cryvnn/nvim-config?style=for-the-badge&color=A3BE8C)](https://mit-license.org/)
+[![License](https://img.shields.io/badge/License-MIT-A3BE8C?style=for-the-badge)](https://mit-license.org/)
 ![GitHub last commit](https://img.shields.io/github/last-commit/cryvnn/nvim-config?style=for-the-badge&color=D08770) 
 
 ![Preview](https://github.com/cryvnn/nvim-config/blob/main/images/preview.png)
